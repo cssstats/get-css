@@ -24,15 +24,33 @@ module.exports = function(url, options){
   }
 
   function getLinkContents(link) {
+    var linkUrl = fixLinkUrl(link);
     var d = q.defer();
-    request({ url: link, timeout: options.timeout }, function(error, response, body) {
+    request({ url: linkUrl, timeout: options.timeout, gzip: true }, function(error, response, body) {
       if (error) d.reject(error);
       d.resolve(body);
     });
     return d.promise;
   }
 
+  function fixLinkUrl(link) {
+    if (!link.match(/^(http|https)/g)) {
+      if (link.match(/^\/[^\/]/g)) {
+        link = url + link;
+      } else if (link.match(/^\/\//g)) {
+        link = 'http:' + link;
+      } else if (link.match(/^\.\./g)) {
+        link = url + link.replace('..', '');
+      } else {
+        link = url + '/' + link;
+      }
+    }
+    return link;
+  }
+
   request({ url: url, timeout: options.timeout }, function(error, response, body) {
+
+    if (error) deferred.reject(error);
 
     var $ = cheerio.load(body);
 
@@ -57,7 +75,12 @@ module.exports = function(url, options){
           result.css += css;
           parsed++;
           handleResolve();
-        });
+        })
+        .catch(function(error) {
+          link.error = error;
+          parsed++;
+          handleResolve();
+        });;
     });
 
     result.styles.forEach(function(css) {
