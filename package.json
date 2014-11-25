@@ -4,7 +4,7 @@
   "description": "Get CSS from a URL",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/test"
   },
   "author": "Brent Jackson",
   "license": "MIT",
