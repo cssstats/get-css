@@ -24,9 +24,8 @@ module.exports = function(url, options){
   }
 
   function getLinkContents(link) {
-    var linkUrl = fixLinkUrl(link);
     var d = q.defer();
-    request({ url: linkUrl, timeout: options.timeout, gzip: true }, function(error, response, body) {
+    request({ url: link, timeout: options.timeout, gzip: true }, function(error, response, body) {
       if (error) d.reject(error);
       d.resolve(body);
     });
@@ -48,28 +47,20 @@ module.exports = function(url, options){
     return link;
   }
 
-  request({ url: url, timeout: options.timeout }, function(error, response, body) {
-
-    if (error) deferred.reject(error);
-
-    var $ = cheerio.load(body);
-
+  function parseHtml(html) {
+    var $ = cheerio.load(html);
     result.pageTitle = $('title').text();
-
     $('[rel=stylesheet]').each(function() {
       result.links.push({ link: $(this).attr('href') });
     });
-
     $('style').each(function() {
       result.styles.push( $(this).text() );
     });
-
     total = result.links.length + result.styles.length;
-
     if (!total) deferred.resolve(false);
-
     result.links.forEach(function(link) {
-      getLinkContents(link.link)
+      link.url = fixLinkUrl(link.link);
+      getLinkContents(link.url)
         .then(function(css) {
           link.css = css;
           result.css += css;
@@ -82,13 +73,16 @@ module.exports = function(url, options){
           handleResolve();
         });;
     });
-
     result.styles.forEach(function(css) {
       result.css += css;
       parsed++;
       handleResolve();
     });
+  }
 
+  request({ url: url, timeout: options.timeout }, function(error, response, body) {
+    if (error) deferred.reject(error);
+    parseHtml(body);
   });
 
   return deferred.promise;
