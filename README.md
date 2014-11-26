@@ -9,7 +9,11 @@ Used in http://cssstats.com
 ```js
 var getCss = require('get-css');
 
-getCss('http://github.com')
+var options = {
+  timeout: 5000
+};
+
+getCss('http://github.com', options)
   .then(function(response) {
     console.log(response);
   })
