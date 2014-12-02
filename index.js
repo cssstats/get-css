@@ -1,7 +1,11 @@
+'use strict';
+
 var q = require('q');
 var urlResolver = require('url');
 var request = require('request');
 var cheerio = require('cheerio');
+
+var getLinkContents = require('./utils/get-link-contents');
 var resolveUrl = require('./utils/resolve-url');
 
 module.exports = function(url, options){
@@ -24,15 +28,6 @@ module.exports = function(url, options){
     }
   }
 
-  function getLinkContents(link) {
-    var d = q.defer();
-    request({ url: link, timeout: options.timeout, gzip: true }, function(error, response, body) {
-      if (error) d.reject(error);
-      d.resolve(body);
-    });
-    return d.promise;
-  }
-
   function parseHtml(html) {
     var $ = cheerio.load(html);
     result.pageTitle = $('title').text();
@@ -46,7 +41,7 @@ module.exports = function(url, options){
     if (!total) deferred.resolve(false);
     result.links.forEach(function(link) {
       link.url = resolveUrl(url, link.link);
-      getLinkContents(link.url)
+      getLinkContents(link.url, options)
         .then(function(css) {
           link.css = css;
           result.css += css;
@@ -72,6 +67,4 @@ module.exports = function(url, options){
   });
 
   return deferred.promise;
-
 };
-
