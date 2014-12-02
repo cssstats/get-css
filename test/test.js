@@ -43,4 +43,8 @@ getCss('http://facebook.com')
     console.error(err);
   });
 
-
+getCss('http://www.azabani.com')
+  .then(logResults)
+  .catch(function(err){
+    console.error(err);
+  });
