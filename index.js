@@ -57,7 +57,7 @@ module.exports = function(url, options){
           link.error = error;
           parsed++;
           handleResolve();
-        });;
+        });
     });
     result.styles.forEach(function(css) {
       result.css += css;
