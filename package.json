@@ -4,7 +4,7 @@
   "description": "Get CSS from a URL",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test"
+    "test": "node test/test && mocha test 'test/**/*.js'"
   },
   "author": "Brent Jackson",
   "license": "MIT",
@@ -14,7 +14,9 @@
     "q": "^1.1.2",
     "request": "^2.48.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^2.0.1"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/jxnblk/get-css.git"
