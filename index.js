@@ -1,7 +1,8 @@
-
 var q = require('q');
+var urlResolver = require('url');
 var request = require('request');
 var cheerio = require('cheerio');
+var resolveUrl = require('./utils/resolve-url');
 
 module.exports = function(url, options){
 
@@ -32,21 +33,6 @@ module.exports = function(url, options){
     return d.promise;
   }
 
-  function fixLinkUrl(link) {
-    if (!link.match(/^(http|https)/g)) {
-      if (link.match(/^\/[^\/]/g)) {
-        link = url + link;
-      } else if (link.match(/^\/\//g)) {
-        link = 'http:' + link;
-      } else if (link.match(/^\.\./g)) {
-        link = url + link.replace('..', '');
-      } else {
-        link = url + '/' + link;
-      }
-    }
-    return link;
-  }
-
   function parseHtml(html) {
     var $ = cheerio.load(html);
     result.pageTitle = $('title').text();
@@ -59,7 +45,7 @@ module.exports = function(url, options){
     total = result.links.length + result.styles.length;
     if (!total) deferred.resolve(false);
     result.links.forEach(function(link) {
-      link.url = fixLinkUrl(link.link);
+      link.url = resolveUrl(url, link.link);
       getLinkContents(link.url)
         .then(function(css) {
           link.css = css;
@@ -71,7 +57,7 @@ module.exports = function(url, options){
           link.error = error;
           parsed++;
           handleResolve();
-        });;
+        });
     });
     result.styles.forEach(function(css) {
       result.css += css;
