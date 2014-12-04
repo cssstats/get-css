@@ -1,10 +1,11 @@
 'use strict';
 
 var q = require('q');
+var urlResolver = require('url');
 var request = require('request');
 var cheerio = require('cheerio');
-var resolveCssImportUrls = require('resolve-css-import-urls');
 
+var resolveCssImportUrls = require('resolve-css-import-urls');
 var getLinkContents = require('./utils/get-link-contents');
 var resolveUrl = require('./utils/resolve-url');
 
