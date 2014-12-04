@@ -1,7 +1,6 @@
 'use strict';
 
 var q = require('q');
-var urlResolver = require('url');
 var request = require('request');
 var cheerio = require('cheerio');
 
