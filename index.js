@@ -6,7 +6,7 @@ var cheerio = require('cheerio');
 
 var resolveCssImportUrls = require('resolve-css-import-urls');
 var getLinkContents = require('./utils/get-link-contents');
-var resolveUrl = require('./utils/resolve-url');
+var createLink = require('./utils/create-link');
 
 module.exports = function(url, options){
 
@@ -39,8 +39,7 @@ module.exports = function(url, options){
 
     $('[rel=stylesheet]').each(function() {
       var link = $(this).attr('href');
-      var resolvedUrl = resolveUrl(url, link);
-      result.links.push({ link: link, url: resolvedUrl, css: '' });
+      result.links.push(createLink(link, url));
     });
 
     $('style').each(function() {
@@ -87,10 +86,13 @@ module.exports = function(url, options){
     result.css += css;
 
     link.imports.forEach(function(importUrl) {
-      getLinkContents(importUrl, options)
+      var importLink = createLink(importUrl, importUrl);
+      result.links.push(importLink);
+
+      getLinkContents(importLink.url, options)
         .then(function(css) {
           result.css += css;
-          handleCssFromLink(link, css);
+          handleCssFromLink(importLink, css);
         })
         .catch(function(error) {
           link.error = error;
