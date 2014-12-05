@@ -12,7 +12,7 @@
     "cheerio": "^0.18.0",
     "q": "^1.1.2",
     "request": "^2.48.0",
-    "resolve-css-import-urls": "0.0.1"
+    "resolve-css-import-urls": "0.0.2"
   },
   "devDependencies": {
     "mocha": "^2.0.1"
