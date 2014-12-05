@@ -42,9 +42,3 @@ getCss('http://facebook.com')
   .catch(function(err){
     console.error(err);
   });
-
-getCss('http://www.azabani.com', { followImports: true })
-  .then(logResults)
-  .catch(function(err){
-    console.error(err);
-  });

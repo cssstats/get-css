@@ -74,11 +74,7 @@ module.exports = function(url, options){
   function handleCssFromLink(link, css) {
     link.css += css;
 
-    if (options.followImports) {
-      parseCssForImports(link, css);
-    } else {
-      result.css += css;
-    }
+    parseCssForImports(link, css);
 
     status.parsed++;
     handleResolve();
