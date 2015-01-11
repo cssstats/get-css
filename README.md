@@ -32,6 +32,7 @@ Each object has the following:
 - `link` - the value from the `href` attribute for each link tag
 - `url` - an absolute url representation of the link
 - `css` - the contents of the file in the link
+- `imports` - an array of urls for `@import` rules
 
 ### `styles`
 An array of contents from `style` tags found in the document.
