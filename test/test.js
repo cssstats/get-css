@@ -42,5 +42,3 @@ getCss('http://facebook.com')
   .catch(function(err){
     console.error(err);
   });
-
-
