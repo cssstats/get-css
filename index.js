@@ -25,6 +25,10 @@ module.exports = function(url, options){
     css: ''
   };
 
+  if (options.ignoreCerts) {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  }
+
   options.timeout = options.timeout || 5000;
 
   function handleResolve() {
@@ -103,7 +107,18 @@ module.exports = function(url, options){
   }
 
   request({ url: url, timeout: options.timeout }, function(error, response, body) {
-    if (error) deferred.reject(error);
+    if (error) {
+      if (options.verbose) console.log('Error from ' + url + ' ' + error);
+      deferred.reject(error);
+      return;
+    }
+
+    if (response && response.statusCode != 200) {
+      if (options.verbose) console.log('Received a ' + response.statusCode + ' from: ' + url);
+      deferred.reject({ url: url, statusCode: response.code });
+      return;
+    }
+
     parseHtml(body);
   });
 
