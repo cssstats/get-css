@@ -19,6 +19,13 @@ function logResults(response) {
   writeLog();
 }
 
+// Site with expired cert.
+getCss('http://aliexpress.com', { verbose: true })
+  .then(logResults)
+  .catch(function(err){
+    console.error(err);
+  });
+
 getCss('http://google.com')
   .then(logResults)
   .catch(function(err){
