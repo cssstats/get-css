@@ -31,6 +31,13 @@ module.exports = function(url, options){
     timeout: options.timeout,
   };
 
+  /* Add user agent if defined */
+  if (options.user_agent) {
+    requestOpt.headers = {
+      'User-Agent': options.user_agent
+    }
+  }
+
   if (options.ignoreCerts) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   }
