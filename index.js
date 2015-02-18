@@ -34,7 +34,7 @@ module.exports = function(url, options){
   /* Add user agent if defined */
   if (options.user_agent) {
     requestOpt.headers = {
-      'User-Agent': options.user_agent
+      'User-Agent': options.userAgent
     }
   }
 
