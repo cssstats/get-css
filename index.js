@@ -25,6 +25,19 @@ module.exports = function(url, options){
     css: ''
   };
 
+  /* Options to be sent with request */
+  var requestOpt = {
+    url: url,
+    timeout: options.timeout,
+  };
+
+  /* Add user agent if defined */
+  if (options.userAgent) {
+    requestOpt.headers = {
+      'User-Agent': options.userAgent
+    }
+  }
+
   if (options.ignoreCerts) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   }
@@ -106,7 +119,7 @@ module.exports = function(url, options){
     });
   }
 
-  request({ url: url, timeout: options.timeout }, function(error, response, body) {
+  request(requestOpt, function(error, response, body) {
     if (error) {
       if (options.verbose) console.log('Error from ' + url + ' ' + error);
       deferred.reject(error);

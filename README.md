@@ -53,3 +53,6 @@ A boolean to determine whether invalid certificates are ignored. Default: `false
 
 ### `verbose`
 A boolean to determine whether errors should be `console.log`ged. Default: `false`
+
+### `userAgent`
+A string to determine what User Agent should be sent to the url. Default: `false`
