@@ -106,7 +106,7 @@ module.exports = function(url, options){
     });
   }
 
-  request({ url: url, timeout: options.timeout }, function(error, response, body) {
+  request({ url: url, timeout: options.timeout, gzip: true }, function(error, response, body) {
     if (error) {
       if (options.verbose) console.log('Error from ' + url + ' ' + error);
       deferred.reject(error);
