@@ -1,15 +1,20 @@
 {
   "name": "get-css",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "description": "Get CSS from a URL",
   "main": "index.js",
   "scripts": {
     "test": "node test/test && mocha test 'test/**/*.js'"
   },
+  "bin": {
+    "getcss": "./bin/getcss"
+  },
   "author": "Brent Jackson",
   "license": "MIT",
   "dependencies": {
     "cheerio": "^0.18.0",
+    "commander": "^2.7.1",
+    "normalize-url": "^1.2.0",
     "q": "^1.1.2",
     "request": "^2.48.0",
     "resolve-css-import-urls": "0.0.2"
@@ -24,7 +29,9 @@
   "keywords": [
     "CSS",
     "request",
-    "parse"
+    "parse",
+    "get",
+    "getcss"
   ],
   "bugs": {
     "url": "https://github.com/cssstats/get-css/issues"

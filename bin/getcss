@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var program = require('commander');
+var normalizeUrl = require('normalize-url');
+var getCss = require('..');
+
+program
+  .version('0.0.1')
+  .command('* <url>')
+  .action(function(url) {
+    if(url) {
+      url = normalizeUrl(url);
+      getCss(url, { verbose: true }).then(function(css) {
+        console.log(css.css);
+      });
+    }
+  });
+
+program.parse(process.argv);
