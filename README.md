@@ -26,7 +26,7 @@ getCss('http://github.com', options)
 
 ```
 npm i -g get-css
-getcss google.com
+getcss google.com > google.css
 ```
 
 ## Response
