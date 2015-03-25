@@ -22,6 +22,13 @@ getCss('http://github.com', options)
   });
 ```
 
+### Using the CLI
+
+```
+npm i -g get-css
+getcss google.com
+```
+
 ## Response
 
 ### `links`
