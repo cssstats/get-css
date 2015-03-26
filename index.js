@@ -95,7 +95,6 @@ module.exports = function(url, options){
 
       getLinkContents(importLink.url, options)
         .then(function(css) {
-          result.css += css;
           handleCssFromLink(importLink, css);
         })
         .catch(function(error) {
