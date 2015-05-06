@@ -24,4 +24,12 @@ describe('resolve-url', function() {
   it('should correctly resolve an absolute link', function() {
     assert.equal(resolveUrl('http://foo.com/some/path', '/bar.css'), 'http://foo.com/bar.css');
   });
+
+  it('should correctly resolve a relative url from an html file', function() {
+    assert.equal(resolveUrl('http://foo.bar/awesome/baz.html', 'baz.css'), 'http://foo.bar/awesome/baz.css');
+  });
+
+  it('should correctly resolve an absolute url from an html file', function() {
+    assert.equal(resolveUrl('http://foo.bar/awesome/baz.html', '/baz.css'), 'http://foo.bar/baz.css');
+  });
 });
