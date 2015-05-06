@@ -3,33 +3,32 @@
 var q = require('q');
 var request = require('request');
 var cheerio = require('cheerio');
-
+var normalizeUrl = require('normalize-url');
 var resolveCssImportUrls = require('resolve-css-import-urls');
 var getLinkContents = require('./utils/get-link-contents');
 var createLink = require('./utils/create-link');
 
 module.exports = function(url, options){
-
   var deferred = q.defer();
-
   var options = options || {};
+  options.url = normalizeUrl(url);
+  options.timeout = options.timeout || 5000;
+  options.gzip = true;
+
+  if (options.ignoreCerts) {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  }
 
   var status = {
     parsed: 0,
     total: 0
-  }
+  };
 
   var result = {
     links: [],
     styles: [],
     css: ''
   };
-
-  if (options.ignoreCerts) {
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  }
-
-  options.timeout = options.timeout || 5000;
 
   function handleResolve() {
     if (status.parsed >= status.total) {
@@ -105,7 +104,7 @@ module.exports = function(url, options){
     });
   }
 
-  request({ url: url, timeout: options.timeout, gzip: true }, function(error, response, body) {
+  request(options, function(error, response, body) {
     if (error) {
       if (options.verbose) console.log('Error from ' + url + ' ' + error);
       deferred.reject(error);
