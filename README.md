@@ -1,8 +1,20 @@
-# Get CSS
-Node module to get CSS from a URL
+# get-css [![Build Status](https://travis-ci.org/cssstats/get-css.svg?branch=master)](https://travis-ci.org/cssstats/get-css)
 
-Returns a promise for an object with details about a document's CSS
-Used in http://cssstats.com
+Node module to get CSS from a URL.
+
+Returns a promise for an object with details about a document's CSS, used in <http://cssstats.com>.
+
+## Installation
+
+```sh
+npm i --save get-css
+```
+
+For the CLI
+
+```sh
+npm i -g get-css
+```
 
 ## Usage
 
@@ -60,3 +72,15 @@ A boolean to determine whether invalid certificates are ignored. Default: `false
 
 ### `verbose`
 A boolean to determine whether errors should be `console.log`ged. Default: `false`
+
+## License
+
+MIT
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
