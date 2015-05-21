@@ -5,7 +5,7 @@ module.exports = function getLinkContents(linkUrl, options) {
   var d = q.defer();
 
   request({ url: linkUrl, timeout: options.timeout, gzip: true }, function(error, response, body) {
-    if (error) {
+    if (error || response.statusCode !== 200) {
       d.reject(error);
     }
 
