@@ -41,7 +41,7 @@ module.exports = function(url, options){
 
   function parseHtml(html) {
     var $ = cheerio.load(html);
-    result.pageTitle = $('title').text();
+    result.pageTitle = $('head > title').text();
 
     $('[rel=stylesheet]').each(function() {
       var link = $(this).attr('href');
