@@ -4,6 +4,7 @@ var q = require('q');
 var request = require('request');
 var cheerio = require('cheerio');
 var normalizeUrl = require('normalize-url');
+var stripHtmlComments = require('strip-html-comments');
 var resolveCssImportUrls = require('resolve-css-import-urls');
 var getLinkContents = require('./utils/get-link-contents');
 var createLink = require('./utils/create-link');
@@ -49,7 +50,7 @@ module.exports = function(url, options){
     });
 
     $('style').each(function() {
-      result.styles.push($(this).text());
+      result.styles.push(stripHtmlComments($(this).text()));
     });
 
     status.total = result.links.length + result.styles.length;
