@@ -1,11 +1,13 @@
 'use strict';
 
 var q = require('q');
+var isCss = require('is-css');
 var request = require('request');
 var cheerio = require('cheerio');
 var normalizeUrl = require('normalize-url');
 var stripHtmlComments = require('strip-html-comments');
 var resolveCssImportUrls = require('resolve-css-import-urls');
+
 var getLinkContents = require('./utils/get-link-contents');
 var createLink = require('./utils/create-link');
 var userAgentString = require('./utils/user-agent-string');
@@ -121,7 +123,13 @@ module.exports = function(url, options){
       return;
     }
 
-    parseHtml(body);
+    if (isCss(url)) {
+      var link = createLink(url, url);
+      result.links.push(link);
+      handleCssFromLink(link, body);
+    } else {
+      parseHtml(body);
+    }
   });
 
   return deferred.promise;
