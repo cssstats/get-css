@@ -17,9 +17,11 @@ module.exports = function(url, options){
   var options = options || {};
   options.headers = options.headers || {};
   options.headers['User-Agent'] = options.headers['User-Agent'] || userAgentString();
-  options.url = normalizeUrl(url);
   options.timeout = options.timeout || 5000;
   options.gzip = true;
+
+  url = normalizeUrl(url);
+  options.url = url;
 
   if (options.ignoreCerts) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
