@@ -20,7 +20,7 @@ module.exports = function(url, options){
   options.timeout = options.timeout || 5000;
   options.gzip = true;
 
-  url = normalizeUrl(url);
+  url = normalizeUrl(url, { stripWWW: false });
   options.url = url;
 
   if (options.ignoreCerts) {
