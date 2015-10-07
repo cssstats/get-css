@@ -2,6 +2,8 @@
 
 var q = require('q');
 var isCss = require('is-css');
+var isBlank = require('is-blank')
+var isUrl = require('is-url-superb')
 var request = require('request');
 var cheerio = require('cheerio');
 var normalizeUrl = require('normalize-url');
@@ -20,7 +22,11 @@ module.exports = function(url, options){
   options.timeout = options.timeout || 5000;
   options.gzip = true;
 
-  url = normalizeUrl(url);
+  if (typeof url !== 'string' || isBlank(url) || !isUrl(url)) {
+    throw new TypeError('get-css expected a url as a string')
+  }
+
+  url = normalizeUrl(url, { stripWWW: false });
   options.url = url;
 
   if (options.ignoreCerts) {
