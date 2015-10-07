@@ -12,13 +12,13 @@
   "author": "Brent Jackson",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^0.18.0",
+    "cheerio": "^0.19.0",
     "commander": "^2.7.1",
     "is-css": "^1.0.0",
     "normalize-url": "^1.2.0",
     "q": "^1.1.2",
     "request": "^2.48.0",
-    "resolve-css-import-urls": "0.0.2",
+    "resolve-css-import-urls": "0.0.3",
     "strip-html-comments": "0.0.2"
   },
   "devDependencies": {
