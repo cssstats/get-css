@@ -10,7 +10,7 @@ program
   .command('* <url>')
   .action(function(url) {
     if(url) {
-      url = normalizeUrl(url);
+      url = normalizeUrl(url, { stripWWW: false });
       getCss(url, { verbose: true }).then(function(css) {
         console.log(css.css);
       });
