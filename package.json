@@ -21,7 +21,8 @@
     "q": "^1.4.1",
     "request": "^2.79.0",
     "resolve-css-import-urls": "1.0.0",
-    "strip-html-comments": "1.0.0"
+    "strip-html-comments": "1.0.0",
+    "ua-string": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "^3.2.0"

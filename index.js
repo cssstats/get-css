@@ -9,16 +9,16 @@ var cheerio = require('cheerio');
 var normalizeUrl = require('normalize-url');
 var stripHtmlComments = require('strip-html-comments');
 var resolveCssImportUrls = require('resolve-css-import-urls');
+var ua = require('ua-string');
 
 var getLinkContents = require('./utils/get-link-contents');
 var createLink = require('./utils/create-link');
-var userAgentString = require('./utils/user-agent-string');
 
 module.exports = function(url, options){
   var deferred = q.defer();
   var options = options || {};
   options.headers = options.headers || {};
-  options.headers['User-Agent'] = options.headers['User-Agent'] || userAgentString();
+  options.headers['User-Agent'] = options.headers['User-Agent'] || ua;
   options.timeout = options.timeout || 5000;
   options.gzip = true;
 
