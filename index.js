@@ -2,8 +2,8 @@
 
 var q = require('q');
 var isCss = require('is-css');
-var isBlank = require('is-blank')
-var isUrl = require('is-url-superb')
+var isBlank = require('is-blank');
+var isUrl = require('is-url-superb');
 var request = require('request');
 var cheerio = require('cheerio');
 var normalizeUrl = require('normalize-url');
@@ -55,12 +55,11 @@ module.exports = function(url, options){
     result.pageTitle = $('head > title').text();
 
     $('[rel=stylesheet]').each(function() {
-        var link = $(this).attr('href');
-        if (!(typeof link !== typeof undefined && link !== false)) {
+        if(isHrefPresent(this)) {
+            result.links.push(createLink(link, url));
+        }else{
             result.styles.push(stripHtmlComments($(this).text()));
-            return;
         }
-      result.links.push(createLink(link, url));
     });
 
     $('style').each(function() {
@@ -99,6 +98,16 @@ module.exports = function(url, options){
     status.parsed++;
     handleResolve();
   }
+
+    /**
+     * check if the link object is a valid resouce link
+     * @param link
+     */
+    function isHrefPresent ( link ) {
+        var href = $(link).attr('href');
+        return (typeof href !== typeof undefined && href !== false);
+    }
+
 
   // Handle potential @import url(foo.css) statements in the CSS.
   function parseCssForImports(link, css) {
