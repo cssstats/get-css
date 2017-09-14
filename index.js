@@ -2,6 +2,7 @@
 
 var q = require('q');
 var isCss = require('is-css');
+var isPresent = require('is-present');
 var isBlank = require('is-blank');
 var isUrl = require('is-url-superb');
 var request = require('request');
@@ -55,7 +56,8 @@ module.exports = function(url, options){
     result.pageTitle = $('head > title').text();
 
     $('[rel=stylesheet]').each(function() {
-        if(isHrefPresent(this)) {
+        var link= $(link).attr('href');
+        if(isPresent(link)) {
             result.links.push(createLink(link, url));
         }else{
             result.styles.push(stripHtmlComments($(this).text()));
@@ -98,16 +100,6 @@ module.exports = function(url, options){
     status.parsed++;
     handleResolve();
   }
-
-    /**
-     * check if the link object is a valid resouce link
-     * @param link
-     */
-    function isHrefPresent ( link ) {
-        var href = $(link).attr('href');
-        return (typeof href !== typeof undefined && href !== false);
-    }
-
 
   // Handle potential @import url(foo.css) statements in the CSS.
   function parseCssForImports(link, css) {
