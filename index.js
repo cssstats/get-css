@@ -56,7 +56,7 @@ module.exports = function(url, options){
     result.pageTitle = $('head > title').text();
 
     $('[rel=stylesheet]').each(function() {
-        var link= $(link).attr('href');
+        var link = $(this).attr('href');
         if(isPresent(link)) {
             result.links.push(createLink(link, url));
         }else{
