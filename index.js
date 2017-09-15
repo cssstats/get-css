@@ -2,8 +2,9 @@
 
 var q = require('q');
 var isCss = require('is-css');
-var isBlank = require('is-blank')
-var isUrl = require('is-url-superb')
+var isPresent = require('is-present');
+var isBlank = require('is-blank');
+var isUrl = require('is-url-superb');
 var request = require('request');
 var cheerio = require('cheerio');
 var normalizeUrl = require('normalize-url');
@@ -55,8 +56,12 @@ module.exports = function(url, options){
     result.pageTitle = $('head > title').text();
 
     $('[rel=stylesheet]').each(function() {
-      var link = $(this).attr('href');
-      result.links.push(createLink(link, url));
+        var link= $(link).attr('href');
+        if(isPresent(link)) {
+            result.links.push(createLink(link, url));
+        }else{
+            result.styles.push(stripHtmlComments($(this).text()));
+        }
     });
 
     $('style').each(function() {
