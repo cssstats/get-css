@@ -1,17 +1,16 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
-var program = require('commander');
-var normalizeUrl = require('normalize-url');
-var getCss = require('..');
+const program = require('commander');
+const normalizeUrl = require('normalize-url');
+const getCss = require('..');
 
 program
   .version('0.0.1')
   .command('* <url>')
-  .action(function(url) {
-    if(url) {
+  .action((url) => {
+    if (url) {
       url = normalizeUrl(url, { stripWWW: false });
-      getCss(url, { verbose: true }).then(function(css) {
+      getCss(url, { verbose: true }).then((css) => {
         console.log(css.css);
       });
     }
