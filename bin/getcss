@@ -6,13 +6,19 @@ var normalizeUrl = require('normalize-url');
 var getCss = require('..');
 
 program
-  .version('0.0.1')
-  .command('* <url>')
-  .action(function(url) {
+  .version('0.0.2')
+  .usage('[options] <url>')
+    .option("-j, --json","output downloaded html and css as json")
+  .action(function(url, options) {
     if(url) {
       url = normalizeUrl(url, { stripWWW: false });
       getCss(url, { verbose: true }).then(function(css) {
-        console.log(css.css);
+          if (options.json){
+              console.log(css);
+          }
+          else {
+              console.log(css.css);
+          }
       });
     }
   });
