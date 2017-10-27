@@ -16,7 +16,7 @@ program
       url = normalizeUrl(url, { stripWWW: false });
       getCss(url, { verbose: true, timeout: options.timeout, stripWayback: options.strip_wayback_css }).then(function(css) {
           if (options.json){
-              console.log(css);
+              console.log(JSON.stringify(css));
           }
           else {
               console.log(css.css);
