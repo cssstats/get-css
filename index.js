@@ -14,7 +14,7 @@ var ua = require("ua-string");
 var getLinkContents = require("./utils/get-link-contents");
 var createLink = require("./utils/create-link");
 
-module.exports = function(url, options){
+module.exports = function(url, options, html){
   var deferred = q.defer();
   var options = options || {};
   options.headers = options.headers || {};
