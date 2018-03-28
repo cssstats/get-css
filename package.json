@@ -1,6 +1,6 @@
 {
   "name": "get-css",
-  "version": "1.2.6",
+  "version": "1.2.7-0",
   "description": "Get CSS from a URL",
   "main": "index.js",
   "scripts": {
