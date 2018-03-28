@@ -21,8 +21,10 @@
     "normalize-url": "^1.8.0",
     "q": "^1.4.1",
     "request": "^2.79.0",
+    "requestretry": "^1.13.0",
     "resolve-css-import-urls": "1.0.0",
     "strip-html-comments": "1.0.0",
+    "strip-wayback-toolbar": "^1.0.4",
     "ua-string": "^1.0.0"
   },
   "devDependencies": {
