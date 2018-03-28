@@ -4,7 +4,7 @@
   "description": "Get CSS from a URL",
   "main": "index.js",
   "scripts": {
-    "format": "prettier --no-semi --single-quote --write {test,lib,bin}/**/*.js index.js",
+    "format": "prettier --no-semi --single-quote --write {test,utils,bin}/**/*.js index.js",
     "test": "node test/test && mocha test 'test/**/*.js'"
   },
   "bin": {
